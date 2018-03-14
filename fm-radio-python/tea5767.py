@@ -225,9 +225,11 @@ class tea5767:
 		
 		self.calculateByteFrequency()
 		self.mute = 0
-		self.standby = 1
+		self.standby = 0
 		self.bandLimits = 0
-		self.FMstation = 102.3
+		self.HCC = 1
+		self.SNC = 1
+		self.FMstation = 95.5
 		self.writeBytes()
 		
 		# allow us to wait until the device is ready to get the correct information
