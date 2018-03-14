@@ -272,9 +272,9 @@ if __name__ == '__main__':
 	radio = tea5767()
 	
 	for arg in sys.argv[1:]:
-        	if arg == 'off'
+        	if arg == 'off':
 			radio.off()
-		elif arg == 'on'
+		elif arg == 'on':
 			radio.on
-		else 
+		else:
 			radio.start()
