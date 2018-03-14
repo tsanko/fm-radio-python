@@ -240,6 +240,6 @@ class tea5767:
 		self.display()
 		return ""
 	
-	if __name__ == '__main__':
-		radio = tea5767()
-		radio.test()
+if __name__ == '__main__':
+	radio = tea5767()
+	radio.test()
