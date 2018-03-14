@@ -275,6 +275,6 @@ if __name__ == '__main__':
         	if arg == 'off':
 			radio.off()
 		elif arg == 'on':
-			radio.on
+			radio.on()
 		else:
 			radio.start()
