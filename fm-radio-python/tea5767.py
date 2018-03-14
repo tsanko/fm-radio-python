@@ -217,11 +217,12 @@ class tea5767:
 		return ("radio off")
 	
 	def on(self):
-		print("Radio off")
+		print("Radio on")
 		self.standby = 0
+		self.mute = 0
 		self.writeBytes()
 		self.display()
-		return ("radio off")
+		return ("radio on")
 
 	def mute(self):
 		if (self.muteFlag):
@@ -272,11 +273,10 @@ class tea5767:
 if __name__ == '__main__':
 	radio = tea5767()
 	
-	for arg in sys.argv[1]:
-		print(arg)
-#       	if arg == 'off':
-#			radio.off()
-#		elif arg == 'on':
-#			radio.on()
-#		else:
-	radio.start()
+	print(sys.argv[1])
+	if sys.argv[1] == 'off':
+		radio.off()
+	elif sys.argv[1] == 'on':
+		radio.on()
+	else:
+		radio.start()
