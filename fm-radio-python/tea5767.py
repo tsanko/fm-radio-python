@@ -212,12 +212,14 @@ class tea5767:
 		print("Radio off")
 		self.standby = 1
 		self.writeBytes()
+		self.display()
 		return ("radio off")
 	
 	def on(self):
 		print("Radio off")
 		self.standby = 0
 		self.writeBytes()
+		self.display()
 		return ("radio off")
 
 	def mute(self):
@@ -268,4 +270,5 @@ class tea5767:
 if __name__ == '__main__':
 	radio = tea5767()
 	#radio.test()
-	radio.off()
+	#radio.off()
+	radio.on
