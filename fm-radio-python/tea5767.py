@@ -40,6 +40,7 @@ TODO:
 
 # import the sleep library so we don't have to eat cpu cycles on this device
 from time import sleep
+import sys
 
 # import the quick2wire library to access the i2c bus
 import quick2wire.i2c as i2c
@@ -246,7 +247,7 @@ class tea5767:
 		print("               Chip ID = "+str(self.chipID))
 		print("            FM Station = "+str(self.FMstation)+" MHz")
 		
-	def test(self):
+	def start(self):
 		
 		self.calculateByteFrequency()
 		self.mute = 0
@@ -271,10 +272,11 @@ class tea5767:
 if __name__ == '__main__':
 	radio = tea5767()
 	
-	for arg in sys.argv[1:]:
-        	if arg == 'off':
-			radio.off()
-		elif arg == 'on':
-			radio.on()
-		else:
-			radio.start()
+	for arg in sys.argv[1]:
+		print(arg)
+#       	if arg == 'off':
+#			radio.off()
+#		elif arg == 'on':
+#			radio.on()
+#		else:
+	radio.start()
