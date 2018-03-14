@@ -266,9 +266,15 @@ class tea5767:
 		# display the updated device information
 		self.display()
 		return ""
+
 	
 if __name__ == '__main__':
 	radio = tea5767()
-	#radio.test()
-	#radio.off()
-	radio.on
+	
+	for arg in sys.argv[1:]:
+        	if arg == 'off'
+			radio.off()
+		elif arg == 'on'
+			radio.on
+		else 
+			radio.start()
