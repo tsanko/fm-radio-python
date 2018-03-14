@@ -208,9 +208,32 @@ class tea5767:
 		#	frequency being off by as much as 1.5 MHz
 		self.FMstation = round((float(round(int(((int(self.upperFrequencyByte)<<8)+int(self.lowerFrequencyByte))*self.crystalOscillatorFrequency/4-22500)/100000)/10)-.2)*10)/10
 		
+	def off(self):
+		print("Radio off")
+		self.standby = 1
+		self.writeBytes()
+		return ("radio off")
+	
+	def on(self):
+		print("Radio off")
+		self.standby = 0
+		self.writeBytes()
+		return ("radio off")
+
+	def mute(self):
+		if (self.muteFlag):
+			self.writeFrequency(self.calculateFrequency(), 0, 0)
+			print("unmute")
+		else:
+			self.writeFrequency(self.calculateFrequency(), 1, 0)
+			print("mute")
+		return ("radio muted")
+	
 	def display(self):
 		"""print out all of the information that we are able to collect from the device for debugging"""
 		print("")
+		print("               StandBy = "+str(self.standby))
+		print("                  Mute = "+str(self.mute))
 		print("            Ready Flag = "+str(self.readyFlag))
 		print("       Band Limit Flag = "+str(self.bandLimitFlag))
 		print("  Upper Frequency Byte = "+hex(self.upperFrequencyByte))
@@ -244,4 +267,5 @@ class tea5767:
 	
 if __name__ == '__main__':
 	radio = tea5767()
-	radio.test()
+	#radio.test()
+	radio.off()
