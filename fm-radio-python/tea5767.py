@@ -348,12 +348,12 @@ if __name__ == '__main__':
     radio = tea5767()
 
     print(sys.argv[1])
-    
+
     if sys.argv[1] == 'off':
         radio.off()
     elif sys.argv[1] == 'on':
         radio.on()
     elif sys.argv[1] == 'scan':
-        radio.scan()
+        radio.scan(1)
     else:
         radio.start()
