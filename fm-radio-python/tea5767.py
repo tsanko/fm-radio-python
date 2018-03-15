@@ -245,6 +245,7 @@ class tea5767:
         fadd = 0
         softMute = 0
 
+        self.readBytes()
         self.FMstation = float(self.FMstation or 88.1)
 
         while (i == False):
