@@ -245,6 +245,8 @@ class tea5767:
         fadd = 0
         softMute = 0
 
+        self.FMstation = float(self.FMstation or 88.1)
+
         while (i == False):
             if direction == 1:
                 fadd = 0.1
@@ -255,9 +257,9 @@ class tea5767:
             self.FMstation = self.calculateFrequency()
             print("FMstation", self.FMstation)
 
-            if float(self.FMstation or 0) < 87.5:
+            if self.FMstation < 87.5:
                 self.FMstation = 108
-            elif float(self.FMstation or 110) > 107.9:
+            elif self.FMstation > 107.9:
                 self.FMstation = 87.5
 
             self.writeBytes()
@@ -279,10 +281,7 @@ class tea5767:
 
             i = self.readyFlag
 
-        self.writeFrequency(self.FMstation, 0, direction)
-
         self.readyFlag = self.getTuned()
-
         print("After tuning:", self.readyFlag)
 
     def off(self):
