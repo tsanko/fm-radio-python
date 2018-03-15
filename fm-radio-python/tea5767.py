@@ -209,13 +209,13 @@ class tea5767:
     def calculateFrequency(self):
         """calculate the station frequency based upon the upper and lower bits read from the device"""
 
-        frequency = (int(self.upperFrequencyByte) << 8) + int(self.lowerFrequencyByte)
+        # frequency = (int(self.upperFrequencyByte) << 8) + int(self.lowerFrequencyByte)
         # Determine the current frequency using the same high side formula as above
-        self.FMstation = round(frequency * self.crystalOscillatorFrequency / 4 - 225000) / 1000000
+        # self.FMstation = round(frequency * self.crystalOscillatorFrequency / 4 - 225000) / 1000000
 
         # this is probably not the best way of doing this but I was having issues with the
         # frequency being off by as much as 1.5 MHz
-        # self.FMstation = round((float(round(int(((int(self.upperFrequencyByte)<<8)+int(self.lowerFrequencyByte))*self.crystalOscillatorFrequency/4-22500)/100000)/10)-.2)*10)/10
+        self.FMstation = round((float(round(int(((int(self.upperFrequencyByte)<<8)+int(self.lowerFrequencyByte))*self.crystalOscillatorFrequency/4-22500)/100000)/10)-.2)*10)/10
 
     def getTuned(self):
         with i2c.I2CMaster() as bus:
@@ -246,7 +246,6 @@ class tea5767:
         softMute = 0
 
         self.readBytes()
-        self.FMstation = float(self.FMstation or 88.1)
 
         while (i == False):
             if direction == 1:
@@ -256,6 +255,8 @@ class tea5767:
 
             # get current frequency, more accurately by averaging 2 method results
             self.FMstation = self.calculateFrequency()
+            self.FMstation = float(self.FMstation or 88.1)
+
             print("FMstation", self.FMstation)
 
             if self.FMstation < 87.5:
@@ -301,12 +302,9 @@ class tea5767:
         return ("radio on")
 
     def mute(self):
-        if (self.muteFlag):
-            self.writeFrequency(self.calculateFrequency(), 0, 0)
-            print("unmute")
-        else:
-            self.writeFrequency(self.calculateFrequency(), 1, 0)
-            print("mute")
+        self.mute = not self.mute
+        self.writeBytes()
+        self.display()
         return ("radio muted")
 
     def display(self):
