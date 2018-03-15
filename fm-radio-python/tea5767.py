@@ -254,8 +254,11 @@ class tea5767:
             else:
                 fadd = -0.1
 
+            print("FMstation1", self.FMstation)
             self.calculateByteFrequency()
+            print("FMstation2", self.FMstation)
             self.FMstation = self.calculateFrequency()
+            print("FMstation3", self.FMstation)
             self.FMstation = self.FMstation + fadd
 
             # self.FMstation = float(self.FMstation or 88.1)
