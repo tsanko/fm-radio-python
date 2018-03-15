@@ -281,7 +281,7 @@ class tea5767:
 
             # print("FMstation2", self.FMstation)
 
-            f.writelines(str(self.FMstation) + "FM (Strong" + str(self.stereoFlag) + "signal:" + str(self.levelADCoutput) + ")")
+            f.writelines(str(self.FMstation) + "FM (Strong" + str(self.stereoFlag) + "signal:" + str(self.levelADCoutput) + ")\n")
             # print("Before tuning", self.getTuned())
             # tune into station that has strong signal only
             if self.levelADCoutput > 5:
