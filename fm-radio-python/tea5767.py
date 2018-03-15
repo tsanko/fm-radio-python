@@ -255,9 +255,9 @@ class tea5767:
             self.FMstation = self.calculateFrequency()
             print("FMstation", self.FMstation)
 
-            if self.FMstation < 87.5:
+            if float(self.FMstation) < 87.5:
                 self.FMstation = 108
-            elif self.FMstation > 107.9:
+            elif float(self.FMstation) > 107.9:
                 self.FMstation = 87.5
 
             self.writeBytes()
