@@ -246,6 +246,7 @@ class tea5767:
         softMute = 0
 
         self.readBytes()
+        self.calculateByteFrequency()
 
         while (i == False):
             if direction == 1:
@@ -253,9 +254,11 @@ class tea5767:
             else:
                 fadd = -0.1
 
-            # get current frequency, more accurately by averaging 2 method results
+            self.calculateByteFrequency()
             self.FMstation = self.calculateFrequency()
-            self.FMstation = float(self.FMstation or 88.1)
+            self.FMstation = self.FMstation + fadd
+
+            # self.FMstation = float(self.FMstation or 88.1)
 
             print("FMstation", self.FMstation)
 
@@ -270,6 +273,7 @@ class tea5767:
             sleep(0.03)
 
             self.readBytes()
+            self.calculateByteFrequency()
             self.FMstation = self.calculateFrequency()  # read again
 
             f = open('telek.txt', 'w')
