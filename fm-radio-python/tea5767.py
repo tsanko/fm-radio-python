@@ -310,6 +310,8 @@ class tea5767:
         self.writeBytes()
         sleep(0.5)
         self.readBytes()
+        self.mute = 0
+        self.writeBytes()
         self.display()
         return ("Station search")
 
