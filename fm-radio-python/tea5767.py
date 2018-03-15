@@ -313,9 +313,9 @@ class tea5767:
         self.searchMode = 1
         # set direction and level
         self.writeBytes()
-        sleep(0.1)
 
         while not self.readyFlag:
+            sleep(0.2)
             self.readBytes()
 
             if self.FMstation < 87.5 or self.FMstation > 107.9:
