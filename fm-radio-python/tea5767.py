@@ -309,9 +309,14 @@ class tea5767:
         self.searchMode = 1
         self.writeBytes()
         sleep(0.5)
+
         self.readBytes()
+        self.calculateByteFrequency()
+        self.calculateFrequency()
+
         self.mute = 0
         self.writeBytes()
+        
         self.display()
         return ("Station search")
 
