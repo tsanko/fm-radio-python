@@ -248,14 +248,16 @@ class tea5767:
         self.readBytes()
         self.calculateByteFrequency()
 
-        while (i == False):
-            if direction == 1:
-                fadd = 0.1
-                self.FMstation = 87.5
-            else:
-                fadd = -0.1
-                self.FMstation = 107.9
+        if direction == 1:
+            fadd = 0.1
+            self.FMstation = 87.5
+        else:
+            fadd = -0.1
+            self.FMstation = 107.9
 
+
+        while (i == False):
+    
             print("FMstation1", self.FMstation)
             self.FMstation = self.FMstation + fadd
 
