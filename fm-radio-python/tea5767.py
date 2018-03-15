@@ -257,13 +257,11 @@ class tea5767:
             print("FMstation1", self.FMstation)
             self.calculateByteFrequency()
             print("FMstation2", self.FMstation)
-            self.FMstation = self.calculateFrequency()
-            print("FMstation3", self.FMstation)
+            # self.FMstation = self.calculateFrequency()
+            # print("FMstation3", self.FMstation)
             self.FMstation = self.FMstation + fadd
 
             # self.FMstation = float(self.FMstation or 88.1)
-
-            print("FMstation", self.FMstation)
 
             if self.FMstation < 87.5:
                 self.FMstation = 108
@@ -278,6 +276,8 @@ class tea5767:
             self.readBytes()
             self.calculateByteFrequency()
             self.FMstation = self.calculateFrequency()  # read again
+
+            print("FMstation4", self.FMstation)
 
             f = open('telek.txt', 'w')
             f.write(str(self.FMstation) + "\n")
