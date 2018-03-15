@@ -180,6 +180,7 @@ class tea5767:
         byteThree = byteThree + 0x02 if self.muteLeft == 1 else byteThree
         byteThree = byteThree + 0x01 if self.SWP1 == 1 else byteThree
 
+        # fourth byte
         byteFour = byteFour + 0x80 if self.SWP2 == 1 else byteFour
         byteFour = byteFour + 0x40 if self.standby == 1 else byteFour
         byteFour = byteFour + 0x20 if self.bandLimits == 1 else byteFour
@@ -209,13 +210,13 @@ class tea5767:
     def calculateFrequency(self):
         """calculate the station frequency based upon the upper and lower bits read from the device"""
 
-        # frequency = (int(self.upperFrequencyByte) << 8) + int(self.lowerFrequencyByte)
+        frequency = (int(self.upperFrequencyByte) << 8) + int(self.lowerFrequencyByte)
         # Determine the current frequency using the same high side formula as above
-        # self.FMstation = round(frequency * self.crystalOscillatorFrequency / 4 - 225000) / 1000000
+        self.FMstation = round(frequency * self.crystalOscillatorFrequency / 4 - 225000) / 1000000
 
         # this is probably not the best way of doing this but I was having issues with the
         # frequency being off by as much as 1.5 MHz
-        self.FMstation = round((float(round(int(((int(self.upperFrequencyByte)<<8)+int(self.lowerFrequencyByte))*self.crystalOscillatorFrequency/4-22500)/100000)/10)-.2)*10)/10
+        # self.FMstation = round((float(round(int(((int(self.upperFrequencyByte)<<8)+int(self.lowerFrequencyByte))*self.crystalOscillatorFrequency/4-22500)/100000)/10)-.2)*10)/10
 
     def getTuned(self):
         with i2c.I2CMaster() as bus:
@@ -306,14 +307,24 @@ class tea5767:
 
     def search(self):
         print("Station search")
+
+        self.readyFlag = 0
+        self.mute = 0
         self.searchMode = 1
-        # self.writeBytes()
-        sleep(0.5)
+        # set direction and level
+        self.writeBytes()
+        sleep(0.1)
 
-        # self.readBytes()
-        # self.calculateByteFrequency()
-        # self.calculateFrequency()
+        while not self.readyFlag:
+            self.readBytes()
 
+            if self.FMstation < 87.5 or self.FMstation > 107.9:
+                self.searchMode = 0
+                self.writeBytes()
+                sleep(0.1)
+                return False
+
+        self.searchMode = 0
         self.mute = 0
         self.writeBytes()
 
