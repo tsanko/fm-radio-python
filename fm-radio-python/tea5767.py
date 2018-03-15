@@ -211,7 +211,7 @@ class tea5767:
 
         frequency = ((self.upperFrequencyByte) << 8) + self.lowerFrequencyByte;
         # Determine the current frequency using the same high side formula as above
-        self.FMstation = round(frequency * self.crystalOscillatorFrequency / 4 - 225000) / 1000000;
+        self.FMstation = round(frequency * self.crystalOscillatorFrequency / 4 - 225000) / 1000000
 
         # this is probably not the best way of doing this but I was having issues with the
         # frequency being off by as much as 1.5 MHz
@@ -253,6 +253,8 @@ class tea5767:
 
             # get current frequency, more accurately by averaging 2 method results
             self.FMstation = self.calculateFrequency()
+            print("FMstation", self.FMstation)
+
             if (self.FMstation < 87.5):
                 self.FMstation = 108
             elif (self.FMstation > 107.9):
