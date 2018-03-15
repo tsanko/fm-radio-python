@@ -281,12 +281,14 @@ class tea5767:
 
             # print("FMstation2", self.FMstation)
 
-            f.writelines(str(self.FMstation) + "FM (Strong" + str(self.stereoFlag) + "signal:" + str(self.levelADCoutput) + ")\n")
             # print("Before tuning", self.getTuned())
             # tune into station that has strong signal only
-            if self.levelADCoutput > 5:
+            if self.levelADCoutput > 4:
+                f.writelines(str(self.FMstation) + "FM (Strong " + str(self.stereoFlag) + " signal:" + str(self.levelADCoutput) + ")\n")
                 print("Frequency tuned:", self.FMstation, "FM (Strong", self.stereoFlag, "signal:", self.levelADCoutput, ")")
             else:
+                f.writelines(str(self.FMstation) + "FM (Weak " + str(self.stereoFlag) + " signal:" + str(self.levelADCoutput) + ")\n")
+
                 print("Station skipped:", self.FMstation, "FM (Weak", self.stereoFlag, "signal:", self.levelADCoutput, ")")
 
             # i = self.readyFlag
@@ -299,6 +301,14 @@ class tea5767:
         print("Radio off")
         self.standby = 1
         self.writeBytes()
+        self.display()
+        return ("radio off")
+
+    def search(self):
+        print("Station search")
+        self.searchMode = 1
+        self.writeBytes()
+
         self.display()
         return ("radio off")
 
