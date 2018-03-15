@@ -209,7 +209,7 @@ class tea5767:
     def calculateFrequency(self):
         """calculate the station frequency based upon the upper and lower bits read from the device"""
 
-        frequency = ((self.upperFrequencyByte) << 8) + self.lowerFrequencyByte;
+        frequency = ((self.upperFrequencyByte) << 8) + self.lowerFrequencyByte
         # Determine the current frequency using the same high side formula as above
         self.FMstation = round(frequency * self.crystalOscillatorFrequency / 4 - 225000) / 1000000
 
