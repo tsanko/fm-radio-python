@@ -374,5 +374,7 @@ if __name__ == '__main__':
         radio.on()
     elif sys.argv[1] == 'scan':
         radio.scan(1)
+    elif sys.argv[1] == 'search':
+        radio.search()
     else:
         radio.start()
