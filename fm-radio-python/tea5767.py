@@ -257,7 +257,7 @@ class tea5767:
 
 
         while (i == False):
-    
+
             print("FMstation1", self.FMstation)
             self.FMstation = self.FMstation + fadd
 
@@ -281,7 +281,7 @@ class tea5767:
             print("FMstation2", self.FMstation)
 
             f = open('telek.txt', 'w')
-            f.write(str(self.FMstation) + "FM (Strong" + str(self.stereoFlag) + "signal:" + str(self.levelADCoutput) + ")\n")
+            f.writelines(str(self.FMstation) + "FM (Strong" + str(self.stereoFlag) + "signal:" + str(self.levelADCoutput) + ")")
             print("Before tuning", self.getTuned())
             # tune into station that has strong signal only
             if self.readyFlag:
