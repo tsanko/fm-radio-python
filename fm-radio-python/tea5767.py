@@ -308,9 +308,10 @@ class tea5767:
         print("Station search")
         self.searchMode = 1
         self.writeBytes()
-
+        sleep(0.5)
+        self.readBytes()
         self.display()
-        return ("radio off")
+        return ("Station search")
 
     def on(self):
         print("Radio on")
