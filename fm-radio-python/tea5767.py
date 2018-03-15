@@ -255,6 +255,7 @@ class tea5767:
             fadd = -0.1
             self.FMstation = 107.9
 
+        f = open('telek.txt', 'w')
 
         while (i == False):
 
@@ -278,21 +279,21 @@ class tea5767:
             self.calculateByteFrequency()
             self.calculateFrequency()
 
-            print("FMstation2", self.FMstation)
+            # print("FMstation2", self.FMstation)
 
-            f = open('telek.txt', 'w')
             f.writelines(str(self.FMstation) + "FM (Strong" + str(self.stereoFlag) + "signal:" + str(self.levelADCoutput) + ")")
-            print("Before tuning", self.getTuned())
+            # print("Before tuning", self.getTuned())
             # tune into station that has strong signal only
-            if self.readyFlag:
+            if self.levelADCoutput > 5:
                 print("Frequency tuned:", self.FMstation, "FM (Strong", self.stereoFlag, "signal:", self.levelADCoutput, ")")
             else:
                 print("Station skipped:", self.FMstation, "FM (Weak", self.stereoFlag, "signal:", self.levelADCoutput, ")")
 
             # i = self.readyFlag
 
+        f.close()
         # self.readyFlag = self.getTuned()
-        print("After tuning:", self.readyFlag)
+        # print("After tuning:", self.readyFlag)
 
     def off(self):
         print("Radio off")
