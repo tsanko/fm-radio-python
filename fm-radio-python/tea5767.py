@@ -274,7 +274,7 @@ class tea5767:
             self.writeBytes()
 
             # give time to finish writing, and then read status
-            sleep(0.03)
+            sleep(0.2)
 
             self.readBytes()
             self.calculateByteFrequency()
@@ -286,11 +286,11 @@ class tea5767:
             # tune into station that has strong signal only
             if self.levelADCoutput > 4:
                 f.writelines(str(self.FMstation) + "FM (Strong " + str(self.stereoFlag) + " signal:" + str(self.levelADCoutput) + ")\n")
-                print("Frequency tuned:", self.FMstation, "FM (Strong", self.stereoFlag, "signal:", self.levelADCoutput, ")")
-            else:
-                f.writelines(str(self.FMstation) + "FM (Weak " + str(self.stereoFlag) + " signal:" + str(self.levelADCoutput) + ")\n")
+                print("Station found:", self.FMstation, "FM (Strong", self.stereoFlag, "signal:", self.levelADCoutput, ")")
+            # else:
+                # f.writelines(str(self.FMstation) + "FM (Weak " + str(self.stereoFlag) + " signal:" + str(self.levelADCoutput) + ")\n")
 
-                print("Station skipped:", self.FMstation, "FM (Weak", self.stereoFlag, "signal:", self.levelADCoutput, ")")
+                # print("Station skipped:", self.FMstation, "FM (Weak", self.stereoFlag, "signal:", self.levelADCoutput, ")")
 
             # i = self.readyFlag
 
@@ -305,23 +305,25 @@ class tea5767:
         self.display()
         return ("radio off")
 
-    def search(self):
-        print("Station search")
-
+    def search(self, dir):
         self.readyFlag = 0
-        self.mute = 0
+        self.mute = 1
         self.searchMode = 1
-        # set direction and level
+        self.SUD = dir #1 or 0
+        print("Station search " + dir)
+        print(str(self.FMstation) + " MHz")
         self.writeBytes()
 
         while not self.readyFlag:
-            sleep(0.2)
+            sleep(0.5)
             self.readBytes()
 
+            print("New: " + str(self.FMstation) + " MHz")
             if self.FMstation < 87.5 or self.FMstation > 107.9:
                 self.searchMode = 0
                 self.writeBytes()
                 sleep(0.1)
+                print("End of bandwith.")
                 return False
 
         self.searchMode = 0
@@ -394,6 +396,6 @@ if __name__ == '__main__':
     elif sys.argv[1] == 'scan':
         radio.scan(1)
     elif sys.argv[1] == 'search':
-        radio.search()
+        radio.search(sys.argv[2])
     else:
         radio.start()
